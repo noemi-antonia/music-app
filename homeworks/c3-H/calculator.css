@@ -1,0 +1,36 @@
+#calculator{
+    max-width: 300px;
+}
+
+#calculator-display{
+    background-color: #222222;
+    color:white;
+    padding: 20px;
+    font-size: 30px;
+}
+
+#calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4,1fr); /* this sets each key to a quarter of the width of the calculator div */
+    grid-gap: 3px;
+}
+
+#calculator-keys > *{
+    padding: 15px 20px;
+    text-align: center;
+    background-color: lavender;
+
+}
+
+#calculator-keys > *:hover{
+    cursor: pointer;
+}
+
+#calculator-keys > *:focus{
+    background-color: gray;
+}
+
+.equal{
+    grid-column: 4; /* position it in the fourth column */
+    grid-row: 2 / span 4; /* it starts in the second row and will span across 4 of grid tracks */
+}

@@ -6,6 +6,7 @@ const canvasVideo = document.getElementById('canvasVideo');
 const ctx = canvas.getContext('2d');
 const ctxVideo = canvasVideo.getContext('2d');
 const quiz = document.getElementById('quiz-container');
+const RESIZE = 330;
 let canvasWidth;
 let canvasHeight;
 
@@ -28,20 +29,21 @@ function startVideo() {
   const playPromise = document.querySelector('video').play();
   if (playPromise) {
     playPromise.then(response => {
-      const videoRatio = video.offsetWidth / video.offsetHeight;
-      canvas.width = canvasVideo.width = 780;
-      canvas.height = canvasVideo.height = canvas.width / videoRatio;
-      canvasWidth = canvas.width;
-      canvasHeight = canvas.height;
-      detect();
+        const videoRatio = video.offsetWidth / video.offsetHeight;
+        canvas.width = canvasVideo.width = 780;
+        canvas.height = canvasVideo.height = canvas.width / videoRatio;
+        canvasWidth = canvas.width;
+        canvasHeight = canvas.height;
+        detect();
+        quiz.style.width = `${canvasWidth - RESIZE}px`; 
+        quiz.style.height = `${canvasHeight}px`;
+        const originX = quiz.getBoundingClientRect().x;
+        const originY = quiz.getBoundingClientRect().y;
 
-      const originX = quiz.getBoundingClientRect().x;
-      const originY = quiz.getBoundingClientRect().y;
+        printQuiz(question,answers,indexOfCorrectAnswer, originX, originY);
 
-      printQuiz(question,answers,indexOfCorrectAnswer, originX, originY);
-
-    })
-    .catch(error => { console.error(error) });
+      })
+      .catch(error => { console.error(error) });  
   }
 }
 

@@ -24,22 +24,19 @@ export const drawHand = (results, ctx, ctxVideo, w, h) => {
   hands.forEach((hand, i) => {
     // Loop through fingers
     if (hand.length) {
-      points.forEach(point => {
-        allPoints[`${i}_${point}`] = {};
-
-        const x = hand[point].x * w;
-        // Get y point
-        const y = hand[point].y * h;
-        // Start drawing
-
+      points.forEach((point) => {
+        const currentPoint = hand[point];
+        const pressed = currentPoint.z < -0.1;
+        // calculam x,y,r pentru a putea desena punctul de pe deget in raport cu viewpoint-ul
+        const x = currentPoint.x * w;
+        const y = currentPoint.y * h;
+        const r = Math.abs(currentPoint.z * 70);
         ctx.beginPath();
-        const radius = 8; //(Math.abs(hand[point].z.toFixed(2) * w))/12;
-        ctx.arc(x, y, radius, 0, 2 * Math.PI);
-        // Set line color
-        ctx.fillStyle = radius > 7 ? 'red' : 'gold';
-        // if (radius > 7.5) {
-          allPoints[`${i}_${point}`] = { x, y, i, point };
-        // }
+        ctx.arc(x, y, r, 0, 2 * Math.PI);
+        ctx.fillStyle = pressed ? "red" : "gold";
+        if (pressed) {
+                  allPoints[`${i}_${point}`] = { x, y, i, point };
+        }
         ctx.fill();
       });
     }
@@ -59,9 +56,6 @@ const checkTouch = (allPoints) => {
       if (p.x > bBox.x - origins.x && p.x < bBox.x - origins.x + bBox.width &&
         p.y > bBox.y - origins.y && p.y < bBox.y - origins.y + bBox.height) {
         activate = true;
-        if (a.classList.contains('answer') && p.y < bBox.y - origins.y + 100) {
-          activate = false;
-        }
       }
     })
     if (activate) {
@@ -96,15 +90,15 @@ export const printQuiz = (question, answers, correctAnswer, originX, originY) =>
   questionDiv.innerHTML = question;
 
   answers.forEach((answer, index) => {
-
+    
     const answersDiv = document.createElement('div');
     quizContainer.appendChild(answersDiv);
     answersDiv.classList.add('answer');
     allAnswers.push(answersDiv);
     answerToPlay[index]={index};
-    answersDiv.setAttribute('answer-index',`${index}`);
+    answersDiv.setAttribute('answer-index',`${index}`);    
     answersDiv.innerHTML = answer;
-
+   
     answersDiv.addEventListener('click', () => validateAnswer(answersDiv,index));
 
   });
@@ -112,7 +106,7 @@ export const printQuiz = (question, answers, correctAnswer, originX, originY) =>
 
 const validateAnswer = (answersDiv,index) => {
   const activeElement = document.querySelector(".active");
-  
+
   if(activeElement){
     activeElement.className='answer';
   }

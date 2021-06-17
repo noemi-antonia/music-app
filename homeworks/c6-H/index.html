@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Augmented Rythms</title>
+    <link href="index.css" rel="stylesheet"/>
+    <script type="module" src="index.js"></script>
+    <!-- Tone js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.12/Tone.js" integrity="sha512-MyXAzMk3sw/i85erXXKd2+z2fzlmKD15TzKKwZd541ifNwUQ8Z73CfAwuyIPc0p5bL7xEA3u/l+/V0K9IyPbCg==" crossorigin="anonymous"></script>
+    <!-- Mediapipe -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="app-container"></div>
+    <video id="video-input"></video>
+    <canvas id="canvas-output" width="780" height="439"></canvas>
+    <div id="raisedFingers">Number of raised fingers: 0</div>
+    <div id="bpm">BPM: 0</div>
+    <div class="btn" id="start-btn">Start sound</div> 
+    <div class="btn" id="stop-btn">Stop sound</div>
+  </body>
+</html>
